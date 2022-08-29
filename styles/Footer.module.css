@@ -1,0 +1,9 @@
+.footer_section {
+  position: absolute;
+  margin: auto;
+  text-align: center;
+  top: 610px;
+  width: 100%;
+  border-top: 1px solid rgb(151, 151, 151);
+  padding: 10px;
+}

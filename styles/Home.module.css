@@ -1,0 +1,14 @@
+.container {
+  padding: 0 2rem;
+}
+
+.main {
+  display: flex;
+  font-weight: 400;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  top: 200px;
+  word-spacing: 15px;
+}
