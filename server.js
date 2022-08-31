@@ -54,7 +54,7 @@ let users = [
 ];
 
 app.get("/", (req, res) => {
-  res.send("Hello World!");
+  res.send("Welcome to the ExpressJs!");
 });
 
 app.get("/usersData", (req, res) => {
