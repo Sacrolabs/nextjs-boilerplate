@@ -1,47 +1,198 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Available Scripts
+> ## Available Scripts
 
 In the project directory, you can run:
 
-### `npm run dev`
+- ### `npm run dev`
 
 Run the app in the development mode.
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-### `npm run test`
+- ### `npm run test`
 
 Launches the test runner in the interactive watch mode.
 
-### `npm run build`
+- ### `npm run build`
 
 Builds the app for production to the `build` folder.
 
-# Storybook Installation
+> ## Express Installation
+
+While NextJS is a wonderful tool in its own right, augmenting it with Express makes for a powerful combo
+
+- ### `npm install express`
+
+After run the command then add the server.js files in root with dummy data
+
+### _server.js_
+
+```
+
+const express = require("express");
+const app = express();
+const port = 3001;
+
+
+app.use(express.json());
+app.use((req, res, next) => {
+  setTimeout(next, 2000);
+});
+
+let users = [
+  {
+    id: 1,
+    name: "Leanne Graham",
+    email: "Sincere@april.biz",
+  },
+  {
+    id: 2,
+    name: "Ervin Howell",
+    email: "Shanna@melissa.tv",
+  },
+  {
+    id: 3,
+    name: "Clementine Bauch",
+    email: "Nathan@yesenia.net",
+  },
+  {
+    id: 4,
+    name: "Patricia Lebsack",
+    email: "Julianne.OConner@kory.org",
+  },
+  {
+    id: 5,
+    name: "Chelsey Dietrich",
+    email: "Lucio_Hettinger@annie.ca",
+  },
+  {
+    id: 6,
+    name: "Mrs. Dennis Schulist",
+    email: "Karley_Dach@jasper.info",
+  },
+  {
+    id: 7,
+    name: "Kurtis Weissnat",
+    email: "Telly.Hoeger@billy.biz",
+  },
+  {
+    id: 8,
+    name: "Nicholas Runolfsdottir V",
+    email: "Sherwood@rosamond.me",
+  },
+];
+
+app.get("/", (req, res) => {
+  res.send("Hello World!");
+});
+
+app.get("/usersData", (req, res) => {
+  res.json(users);
+});
+
+app.listen(port, () => {
+  console.log(`Example app listening on port ${port}`);
+});
+
+```
+
+> ## fetch data from express in frontend
+
+- ### `npm i axios`
+
+```
+import React from "react";
+import axios from "axios";
+const Post = ({ usersData }) => {
+  return (
+    <>
+      <table id="customers">
+        <tr>
+          <th>S.No.</th>
+          <th>Name</th>
+          <th>E-mail</th>
+        </tr>
+        {usersData &&
+          usersData.map((item) => {
+            return (
+              <tr>
+                <td>{item.id}</td>
+                <td> {item.name}</td>
+                <td> {item.email}</td>
+              </tr>
+            );
+          })}
+      </table>
+    </>
+  );
+};
+export default Post;
+export async function getStaticProps() {
+  const response = await axios.get(
+    `${process.env.NEXT_SERVER_API_DUMMY_DATA_ENDPOINT}` + "/usersData"
+  );
+  const data = response.data;
+  return {
+    props: {
+      usersData: data,
+    },
+  };
+}
+
+
+```
+
+> ## Run Express:
+
+After that open **localhost://3001** in broswer;
+
+- ### `node server.js`
+
+> ## Cookies :
+
+Getting, setting and removing cookies with NEXT.JS
+
+- Basic HTTP cookie parser and serializer for HTTP servers.
+
+- ### `npm install cookie`
+
+### _lib/parseCookies.js_
+
+```
+
+import cookie from "cookie";
+
+export function parseCookies(req) {
+  return cookie.parse(req ? req.headers.cookie || "" : document.cookie);
+}
+
+```
+
+> ## Storybook Installation
 
 ## Add Storybook:
 
-Use the Storybook CLI to install it in a single command. Run this inside your existing project’s root directory:
+* Use the Storybook CLI to install it in a single command. Run this inside your existing project’s root directory:
 
 ### `npx storybook init`
 
-# Run Storybook:
+> ## Run Storybook:
 
 ### `npm run storybook`
 
 It will start Storybook locally and output the address. Depending on your system configuration, it will automatically open the address in a new browser tab, and you'll be greeted by a welcome screen.
 
-# Install Testing Library
+> ## Install Testing Library
 
-## Next.js with Jest and React Testing Library
+### Next.js with Jest and React Testing Library
 
-### `yarn add -D @testing-library/jest-dom @testing-library/react babel-jest jest`
+*  ### `yarn add -D @testing-library/jest-dom @testing-library/react babel-jest jest`
 
 After run the command then add the following files in root:
 
 ### 1. Create a _**test**_ folder and in the test folder add a new folder _**pages**_ then in the pages folder add _**index.test.js**_ after do these steps call the component which is in your pages/index.js
 
-## **jest.config.js**
+### _jest.config.js_
 
 ```module.exports = {
   testEnvironment: "jsdom",
@@ -81,7 +232,7 @@ After run the command then add the following files in root:
 };
 ```
 
-## **jest.setup.js**
+### _jest.setup.js_
 
 ```// Optional: configure or set up a testing framework before each test.
 // If you delete this file, remove `setupFilesAfterEnv` from `jest.config.js`
@@ -91,7 +242,7 @@ After run the command then add the following files in root:
 import "@testing-library/jest-dom/extend-expect";
 ```
 
-## **jsconfig.json**
+### _jsconfig.json_
 
 ```
 {
@@ -109,22 +260,22 @@ import "@testing-library/jest-dom/extend-expect";
 }
 ```
 
-# Redux Installation
+> ## Redux Installation
 
-### `npm install redux`
+* ### `npm install redux`
 
-### `npm install react-redux`
+* ### `npm install react-redux`
 
-### `npm i redux-devtools-extension`
+* ### `npm i redux-devtools-extension`
 
-### `npm i next-redux-wrapper`
+* *  ### `npm i next-redux-wrapper`
 
 React-Redux is conceptually pretty simple. It subscribes to the Redux store, checks to see if the data your component wants has changed, and re-renders your component.
 
 Use for Global State management
 Added folder name store , store.js for configure store
 
-### **store/action.js**
+### _store/action.js_
 
 ```
 export const usersActionTypes = {
@@ -136,7 +287,7 @@ return { type: usersActionTypes.ADD_USER, user: newUser };
 };
 ```
 
-### **store/reducer.js**
+### _store/reducer.js_
 
 ```import { usersActionTypes } from "./action";
 
@@ -155,7 +306,7 @@ return state;
 }
 ```
 
-### **pages/AddUser.js**
+### _pages/AddUser.js_
 
 ```
 import React from "react";
@@ -192,9 +343,9 @@ return (
 };
 ```
 
-# getServerSideProps (SSR)
+> ## getServerSideProps (SSR)
 
-### **pages/AddUser.js**
+### _pages/AddUser.js_
 
 ```
 export const getServerSideProps = wrapper.getServerSideProps(
@@ -208,9 +359,9 @@ store.dispatch(addUser(`${data.first_name} ${data.last_name}`));
 );
 ```
 
-# client side rendering (CSR)
+> ## client side rendering (CSR)
 
-### **pages/index.js**
+### _pages/index.js_
 
 ```
 
@@ -267,9 +418,9 @@ Welcome to <a href="https:nextjs.org">Next.js!</a>
 </div>
 ```
 
-# axios with getStaticProps
+> ## axios with getStaticProps
 
-### **pages/axios.js**
+### _pages/axios.js_
 
 ```
 export const getStaticProps = async () => {
@@ -280,7 +431,7 @@ props: { data: res.data.slice(0, 10) },
 };
 ```
 
-# adding a global stylesheet
+> ## adding a global stylesheet
 
 To add a stylesheet to your application, import the CSS file within pages/\_app.js.
 
@@ -312,7 +463,7 @@ export default function MyApp({ Component, pageProps }) {
 
 For global stylesheets, like bootstrap or nprogress, you should import the file inside pages/\_app.js. For example:
 
-### **pages/_app.js**
+### _pages/\_app.js_
 
 ```
 import 'bootstrap/dist/css/bootstrap.css'
@@ -330,7 +481,7 @@ You can start editing the page by modifying `pages/index.js`. The page auto-upda
 
 The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
 
-## Learn More
+> ## Learn More
 
 To learn more about Next.js, take a look at the following resources:
 
@@ -339,7 +490,7 @@ To learn more about Next.js, take a look at the following resources:
 
 You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
 
-## Deploy on Vercel
+> ## Deploy on Vercel
 
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 

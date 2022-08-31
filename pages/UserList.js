@@ -20,7 +20,7 @@ const UserList = ({ users }) => {
 export default UserList;
 export async function getStaticProps() {
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API_DUMMY_ENDPOINT}${"/users"}`
+    `${process.env.NEXT_PUBLIC_API_DUMMY_DATA_ENDPOINT}${"/users"}`
   );
   const data = await response.json();
   return {
@@ -29,3 +29,4 @@ export async function getStaticProps() {
     },
   };
 }
+

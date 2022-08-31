@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
-
-const Home = () => {
+import Cookie from "js-cookie";
+import { parseCookies } from "../lib/parseCookies";
+const Home = ({ initialRememberValue = true }) => {
   const [darkTheme, setDarkTheme] = useState(undefined);
 
   const handleToggle = (event) => {
@@ -28,12 +29,29 @@ const Home = () => {
     }
   }, [darkTheme]);
 
+  //cookies
+  const [rememberMe, setRememberMe] = useState(() =>
+    JSON.parse(initialRememberValue)
+  );
+
+  useEffect(() => {
+    Cookie.set("rememberMe", JSON.stringify(rememberMe));
+  }, [rememberMe]);
   return (
     <div>
       {darkTheme !== undefined && (
         <div className="dark-mode">
           {" "}
           <label>
+            <div>
+              <input
+                type="checkbox"
+                value={rememberMe}
+                checked={rememberMe}
+                onChange={(e) => setRememberMe(e.target.checked)}
+              />
+              remember me
+            </div>
             <input
               type="checkbox"
               checked={darkTheme}
@@ -50,5 +68,12 @@ const Home = () => {
       </main>
     </div>
   );
+};
+Home.getInitialProps = ({ req }) => {
+  const cookies = parseCookies(req);
+
+  return {
+    initialRememberValue: cookies.rememberMe,
+  };
 };
 export default Home;
