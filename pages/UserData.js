@@ -1,6 +1,6 @@
 import React from "react";
 import axios from "axios";
-const Post = ({ usersData }) => {
+const UserData = ({ usersData }) => {
   return (
     <>
       <table id="customers">
@@ -23,7 +23,7 @@ const Post = ({ usersData }) => {
     </>
   );
 };
-export default Post;
+export default UserData;
 export async function getStaticProps() {
   const response = await axios.get(
     `${process.env.NEXT_SERVER_API_DUMMY_DATA_ENDPOINT}` + "/usersData"

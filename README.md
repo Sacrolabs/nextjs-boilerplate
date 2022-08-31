@@ -168,11 +168,89 @@ export function parseCookies(req) {
 
 ```
 
+> ## Cors Installation
+
+- This is a Node.js module available through the npm registry. Installation is done using the npm install command:
+
+### `npm install cors`
+
+```
+
+const express = require("express");
+const cors = require("cors");
+const app = express();
+const port = 3001;
+
+app.use(cors());
+
+app.use(express.json());
+app.use((req, res, next) => {
+  setTimeout(next, 2000);
+});
+
+let users = [
+  {
+    id: 1,
+    name: "Leanne Graham",
+    email: "Sincere@april.biz",
+  },
+  {
+    id: 2,
+    name: "Ervin Howell",
+    email: "Shanna@melissa.tv",
+  },
+  {
+    id: 3,
+    name: "Clementine Bauch",
+    email: "Nathan@yesenia.net",
+  },
+  {
+    id: 4,
+    name: "Patricia Lebsack",
+    email: "Julianne.OConner@kory.org",
+  },
+  {
+    id: 5,
+    name: "Chelsey Dietrich",
+    email: "Lucio_Hettinger@annie.ca",
+  },
+  {
+    id: 6,
+    name: "Mrs. Dennis Schulist",
+    email: "Karley_Dach@jasper.info",
+  },
+  {
+    id: 7,
+    name: "Kurtis Weissnat",
+    email: "Telly.Hoeger@billy.biz",
+  },
+  {
+    id: 8,
+    name: "Nicholas Runolfsdottir V",
+    email: "Sherwood@rosamond.me",
+  },
+];
+
+app.get("/", (req, res) => {
+  res.send("Hello World!");
+});
+
+app.get("/usersData", (req, res) => {
+  res.json(users);
+});
+
+app.listen(port, () => {
+  console.log(`Example app listening on port ${port}`);
+});
+
+
+```
+
 > ## Storybook Installation
 
 ## Add Storybook:
 
-* Use the Storybook CLI to install it in a single command. Run this inside your existing project’s root directory:
+- Use the Storybook CLI to install it in a single command. Run this inside your existing project’s root directory:
 
 ### `npx storybook init`
 
@@ -186,7 +264,7 @@ It will start Storybook locally and output the address. Depending on your system
 
 ### Next.js with Jest and React Testing Library
 
-*  ### `yarn add -D @testing-library/jest-dom @testing-library/react babel-jest jest`
+- ### `yarn add -D @testing-library/jest-dom @testing-library/react babel-jest jest`
 
 After run the command then add the following files in root:
 
@@ -262,13 +340,13 @@ import "@testing-library/jest-dom/extend-expect";
 
 > ## Redux Installation
 
-* ### `npm install redux`
+- ### `npm install redux`
 
-* ### `npm install react-redux`
+- ### `npm install react-redux`
 
-* ### `npm i redux-devtools-extension`
+- ### `npm i redux-devtools-extension`
 
-* *  ### `npm i next-redux-wrapper`
+-  ### `npm i next-redux-wrapper`
 
 React-Redux is conceptually pretty simple. It subscribes to the Redux store, checks to see if the data your component wants has changed, and re-renders your component.
 
@@ -429,6 +507,34 @@ return {
 props: { data: res.data.slice(0, 10) },
 };
 };
+```
+
+
+
+
+> ## Client-side data fetching with SWR
+
+The name “SWR” is derived from stale-while-revalidate, a cache invalidation strategy popularized by HTTP RFC 5861. SWR first returns the data from cache (stale), then sends the request (revalidate), and finally comes with the up-to-date data again
+
+- ### `npm install swr`
+```
+import useSWR from 'swr'
+
+const fetcher = (...args) => fetch(...args).then((res) => res.json())
+
+function Profile() {
+  const { data, error } = useSWR('/api/profile-data', fetcher)
+
+  if (error) return <div>Failed to load</div>
+  if (!data) return <div>Loading...</div>
+
+  return (
+    <div>
+      <h1>{data.name}</h1>
+      <p>{data.bio}</p>
+    </div>
+  )
+}
 ```
 
 > ## adding a global stylesheet
