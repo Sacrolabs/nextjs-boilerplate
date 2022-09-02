@@ -3,7 +3,7 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 > ## Available Scripts
 
 In the project directory, you can run:
-
+- ### `npm install`
 - ### `npm run dev`
 
 Run the app in the development mode.
